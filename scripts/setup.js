@@ -3,7 +3,8 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const root = process.cwd();
-const src = path.join(root, 'code', '.env.example');
+const srcRoot = path.join(root, '.env.example');
+const srcCode = path.join(root, 'code', '.env.example');
 const dest = path.join(root, '.env');
 
 async function fileExists(p) {
@@ -22,8 +23,16 @@ async function main() {
       return;
     }
 
-    if (await fileExists(src)) {
-      await fs.copyFile(src, dest);
+    // Try root .env.example first (for CI compatibility)
+    if (await fileExists(srcRoot)) {
+      await fs.copyFile(srcRoot, dest);
+      console.log('Copied .env.example to .env');
+      return;
+    }
+
+    // Try code/.env.example
+    if (await fileExists(srcCode)) {
+      await fs.copyFile(srcCode, dest);
       console.log('Copied code/.env.example to .env');
       return;
     }
