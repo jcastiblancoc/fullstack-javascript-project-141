@@ -1,0 +1,56 @@
+extends ../layout.pug
+
+block content
+  h2 Tareas
+  if currentUser
+    a.btn.btn-primary.mb-3(href='/tasks/new') Crear tarea
+  //- Filters form
+  form.mb-3(action='/tasks' method='get')
+    .row.g-2
+      .col-auto
+        select.form-select(name='statusId' id='data_status')
+          option(value='') Estado
+          each s in statuses
+            option(value=s.id selected=(String(filters.statusId) === String(s.id)))= s.name
+      .col-auto
+        select.form-select(name='executorId' id='data_executor')
+          option(value='') Ejecutor
+          each u in users
+            option(value=u.id selected=(String(filters.executorId) === String(u.id)))= `${u.firstName} ${u.lastName}`
+      .col-auto
+        select.form-select(name='labelId' id='data_label')
+          option(value='') Etiqueta
+          each l in labels
+            option(value=l.id selected=(String(filters.labelId) === String(l.id)))= l.name
+      .col-auto.d-flex.align-items-center
+        label.me-2
+          input.form-check-input(type='checkbox' name='hasLabel' value='1' checked=(filters.hasLabel == '1' || filters.hasLabel === 'true' || filters.hasLabel === true))
+          |  Con etiqueta
+      .col-auto.d-flex.align-items-center
+        label.me-2
+          input.form-check-input(type='checkbox' name='onlyMy' value='1' checked=(filters.onlyMy == '1' || filters.onlyMy === 'true' || filters.onlyMy === true))
+          |  Solo mis tareas
+      .col-auto
+        button.btn.btn-secondary(type='submit') Mostrar
+  table.table
+    thead
+      tr
+        th ID
+        th Nombre
+        th Estado
+        th Creador
+        th Ejecutor
+        th Acciones
+    tbody
+      each task in tasks
+        tr
+          td= task.id
+          td: a(href='/tasks/' + task.id)= task.name
+          td= task.statusName
+          td= `${task.creatorFirstName} ${task.creatorLastName}`
+          td= task.executorFirstName ? `${task.executorFirstName} ${task.executorLastName}` : ''
+          td
+            if currentUser && String(currentUser.id) === String(task.creatorId)
+              a.btn.btn-sm.btn-outline-primary(href='/tasks/' + task.id + '/edit') Actualizar
+              form.d-inline(action='/tasks/' + task.id + '/delete' method='post')
+                button.btn.btn-sm.btn-outline-danger(type='submit') Eliminar

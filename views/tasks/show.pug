@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block content
+  h2= task.name
+  p
+    strong Estado: 
+    | #{task.statusName}
+  p
+    strong Creador: 
+    | #{task.creatorFirstName} #{task.creatorLastName}
+  p
+    strong Ejecutor: 
+    | #{task.executorFirstName ? `${task.executorFirstName} ${task.executorLastName}` : ''}
+  if task.labels && task.labels.length
+    p
+      strong Etiquetas: 
+      each label, index in task.labels
+        | #{label.name}
+        if index < task.labels.length - 1
+          | , 
+  p
+    strong Descripción:
+  p= task.description
+  if currentUser && String(currentUser.id) === String(task.creatorId)
+    a.btn.btn-primary(href='/tasks/' + task.id + '/edit') Editar
+    form.d-inline(action='/tasks/' + task.id + '/delete' method='post')
+      button.btn.btn-danger(type='submit') Eliminar

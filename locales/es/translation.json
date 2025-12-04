@@ -1,0 +1,46 @@
+{
+  "site": {
+    "title": "Aplicación Fastify"
+  },
+  "nav": {
+    "home": "Inicio",
+    "login": "Iniciar sesión",
+    "signup": "Registrarse",
+    "users": "Usuarios",
+    "statuses": "Estados",
+    "labels": "Etiquetas",
+    "logout": "Cerrar sesión",
+    "tasks": "Tareas"
+  },
+  "hero": {
+    "title": "Bienvenido a la Aplicación Fastify",
+    "subtitle": "Renderizado en el servidor con Pug y Bootstrap"
+  }
+  ,
+  "status": {
+    "name": "Nombre",
+    "created": "Estado creado",
+    "updated": "Estado actualizado",
+    "deleted": "Estado eliminado"
+  }
+  ,
+  "task": {
+    "created": "Tarea creada",
+    "updated": "Tarea actualizada con éxito",
+    "deleted": "Tarea eliminada"
+  }
+  ,
+  "form": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Entrar",
+    "signUp": "Registrarse",
+    "create": "Crear",
+    "save": "Guardar"
+  },
+  "alerts": {
+    "signIn": "Has iniciado sesión",
+    "signOut": "Has cerrado sesión",
+    "invalidCredentials": "Credenciales inválidas"
+  }
+}

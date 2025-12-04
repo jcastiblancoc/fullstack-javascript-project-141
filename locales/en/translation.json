@@ -1,0 +1,44 @@
+{
+  "site": {
+    "title": "Fastify App"
+  },
+  "nav": {
+    "home": "Home",
+    "login": "Login",
+    "signup": "Register",
+    "users": "Users",
+    "statuses": "Statuses",
+    "logout": "Logout",
+    "tasks": "Tasks"
+  },
+  "hero": {
+    "title": "Welcome to Fastify App",
+    "subtitle": "Server-side rendered with Pug and Bootstrap"
+  }
+  ,
+  "status": {
+    "name": "Name",
+    "created": "Status created",
+    "updated": "Status updated",
+    "deleted": "Status deleted"
+  }
+  ,
+  "task": {
+    "created": "Task created",
+    "updated": "Task updated",
+    "deleted": "Task deleted"
+  },
+  "form": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "create": "Create",
+    "save": "Save"
+  },
+  "alerts": {
+    "signIn": "You are logged in",
+    "signOut": "You are logged out",
+    "invalidCredentials": "Invalid credentials"
+  }
+}

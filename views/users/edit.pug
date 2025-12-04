@@ -1,0 +1,19 @@
+extends ../layout.pug
+
+block content
+  h2 Editar usuario
+  form(action=`/users/${user.id}` method='post' novalidate)
+    input(type='hidden' name='_method' value='PATCH')
+    .mb-3
+      label.form-label(for='data_firstName') Nombre
+      input.form-control(type='text' id='data_firstName' name='data[firstName]' value=user.firstName)
+    .mb-3
+      label.form-label(for='data_lastName') Apellido
+      input.form-control(type='text' id='data_lastName' name='data[lastName]' value=user.lastName)
+    .mb-3
+      label.form-label(for='data_email') Correo electrónico
+      input.form-control(type='email' id='data_email' name='data[email]' value=user.email)
+    .mb-3
+      label.form-label(for='data_password') Contraseña
+      input.form-control(type='password' id='data_password' name='data[password]')
+    button.btn.btn-primary(type='submit') Actualizar

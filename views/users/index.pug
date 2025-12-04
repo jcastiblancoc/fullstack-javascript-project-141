@@ -1,0 +1,24 @@
+extends ../layout.pug
+
+block content
+  h2 Usuarios
+  table.table
+    thead
+      tr
+        th ID
+        th Nombre completo
+        th Email
+        th Acciones
+    tbody
+      each user in users
+        tr
+          td= user.id
+          td= `${user.firstName} ${user.lastName}`
+          td= user.email
+          td
+            if currentUser && String(currentUser.id) === String(user.id)
+              a.btn.btn-sm.btn-outline-primary(href=`/users/${user.id}/edit`) Actualizar
+              form.d-inline(action=`/users/${user.id}/delete` method='post')
+                input(type='hidden' name='_method' value='DELETE')
+                button.btn.btn-sm.btn-outline-danger(type='submit') Eliminar
+  a.btn.btn-primary(href='/users/new') Nuevo usuario

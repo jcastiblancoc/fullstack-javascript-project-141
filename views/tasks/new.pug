@@ -1,0 +1,33 @@
+extends ../layout.pug
+
+block content
+  h2 Nueva tarea
+  form(action='/tasks' method='post' novalidate)
+    .mb-3
+      label.form-label(for='data_name') Nombre
+      input.form-control(type='text' id='data_name' name='data[name]' value=(values && values.name ? values.name : '') class=(errors && errors.name ? 'is-invalid' : ''))
+      if errors && errors.name
+        .invalid-feedback= errors.name
+    .mb-3
+      label.form-label(for='data_description') Descripción
+      textarea.form-control(id='data_description' name='data[description]')= values && values.description ? values.description : ''
+    .mb-3
+      label.form-label(for='data_statusId') Estado
+      select.form-select(id='data_statusId' name='data[statusId]' class=(errors && errors.statusId ? 'is-invalid' : ''))
+        option(value='') -
+        each s in statuses
+          option(value=s.id selected=(values && String(values.statusId) === String(s.id)))= s.name
+      if errors && errors.statusId
+        .invalid-feedback= errors.statusId
+    .mb-3
+      label.form-label(for='data_executorId') Ejecutor
+      select.form-select(id='data_executorId' name='data[executorId]')
+        option(value='') -
+        each u in users
+          option(value=u.id selected=(values && String(values.executorId) === String(u.id)))= `${u.firstName} ${u.lastName}`
+    .mb-3
+      label.form-label(for='data_labels') Etiquetas
+      select.form-select(id='data_labels' name='data[labels][]' multiple)
+        each l in labels
+          option(value=l.id)= l.name
+    button.btn.btn-primary(type='submit') Crear

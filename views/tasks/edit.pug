@@ -1,0 +1,29 @@
+extends ../layout.pug
+
+block content
+  h2 Editar tarea
+  form(action='/tasks/' + task.id + '/edit' method='post' novalidate)
+    .mb-3
+      label.form-label(for='data_name') Nombre
+      input.form-control(type='text' id='data_name' name='data[name]' value=task.name)
+    .mb-3
+      label.form-label(for='data_description') Descripción
+      textarea.form-control(id='data_description' name='data[description]')= task.description
+    .mb-3
+      label.form-label(for='data_statusId') Estado
+      select.form-select(id='data_statusId' name='data[statusId]')
+        each s in statuses
+          option(value=s.id selected=(String(s.id)===String(task.statusId)))= s.name
+    .mb-3
+      label.form-label(for='data_executorId') Ejecutor
+      select.form-select(id='data_executorId' name='data[executorId]')
+        option(value='') -
+        each u in users
+          option(value=u.id selected=(String(u.id)===String(task.executorId)))= `${u.firstName} ${u.lastName}`
+    .mb-3
+      label.form-label(for='data_labels') Etiquetas
+      select.form-select(id='data_labels' name='data[labels][]' multiple)
+        each l in labels
+          - const selected = task.labelIds && task.labelIds.some((x) => String(x) === String(l.id))
+          option(value=l.id selected=selected)= l.name
+    button.btn.btn-primary(type='submit') Actualizar

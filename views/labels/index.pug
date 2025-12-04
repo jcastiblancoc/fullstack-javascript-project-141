@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+  h2 Etiquetas
+  table.table
+    thead
+      tr
+        th ID
+        th Nombre
+        th Acciones
+    tbody
+      each label in labels
+        tr
+          td= label.id
+          td= label.name
+          td
+            if currentUser
+              a.btn.btn-sm.btn-outline-primary(href='/labels/' + label.id + '/edit') Actualizar
+              form.d-inline(action='/labels/' + label.id + '/delete' method='post')
+                button.btn.btn-sm.btn-outline-danger(type='submit') Eliminar
+  if currentUser
+    a.btn.btn-primary(href='/labels/new') Crear etiqueta

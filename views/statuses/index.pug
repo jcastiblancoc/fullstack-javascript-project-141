@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+  h2 Estados
+  table.table
+    thead
+      tr
+        th ID
+        th Nombre
+        th Acciones
+    tbody
+      each status in statuses
+        tr
+          td= status.id
+          td= status.name
+          td
+            if currentUser
+              a.btn.btn-sm.btn-outline-primary(href='/statuses/' + status.id + '/edit') Actualizar
+              form.d-inline(action='/statuses/' + status.id + '/delete' method='post')
+                button.btn.btn-sm.btn-outline-danger(type='submit') Eliminar
+  if currentUser
+    a.btn.btn-primary(href='/statuses/new') Crear estado

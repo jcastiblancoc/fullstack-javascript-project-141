@@ -1,0 +1,44 @@
+doctype html
+html(lang=lang)
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    title= t('site.title')
+    // Bootstrap CSS CDN
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet')
+  body
+    block navbar
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container-fluid
+          a.navbar-brand(href='/')= t('site.title')
+          #navbarNav.collapse.navbar-collapse
+            ul.navbar-nav.me-auto.mb-2.mb-lg-0
+              li.nav-item
+                a.nav-link(aria-current='page' href='/')= t('nav.home')
+              li.nav-item
+                a.nav-link(href='/statuses')= t('nav.statuses')
+              li.nav-item
+                a.nav-link(href='/labels')= t('nav.labels')
+              li.nav-item
+                a.nav-link(href='/tasks')= t('nav.tasks')
+              li.nav-item
+                a.nav-link(href='/users')= t('nav.users')
+            ul.navbar-nav
+              if currentUser
+                li.nav-item
+                  form(action='/session/delete' method='post')
+                    button.btn.btn-link(type='submit')= t('nav.logout')
+              else
+                li.nav-item
+                  a.nav-link(href='/session/new')= t('nav.login')
+                li.nav-item
+                  a.nav-link(href='/users/new')= t('nav.signup')
+    .container.mt-4
+      if flash
+        .alert(class=`alert-${flash.type}` role='alert')= flash.message
+      block content
+
+    // Bootstrap JS (bundle includes Popper)
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')
+    // App bundle (built with webpack)
+    script(src='/public/dist/bundle.js')
